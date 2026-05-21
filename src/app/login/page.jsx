@@ -1,0 +1,161 @@
+"use client";
+
+import { authClient } from "@/lib/auth-client";
+import Link from "next/link";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { FaEye } from "react-icons/fa6";
+import { FcGoogle } from "react-icons/fc";
+import { IoMdEyeOff } from "react-icons/io";
+import toast from "react-hot-toast";
+import { useRouter, useSearchParams } from "next/navigation";
+
+const LoginPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const [showpass, setShowpass] = useState(false);
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // redirect route
+  const redirectTo = searchParams.get("redirect") || "/";
+
+  // LOGIN
+  const handleLogin = async (data) => {
+    const { email, password } = data;
+
+    const { error } = await authClient.signIn.email({
+      email,
+      password,
+      rememberMe: true,
+    });
+
+    if (error) {
+      toast.error(error?.message || "Something went wrong");
+    } else {
+      toast.success("Login successful");
+
+      // redirect after login
+      setTimeout(() => {
+        router.push(redirectTo);
+      }, 1000);
+    }
+  };
+
+  // GOOGLE LOGIN
+  const handleGoogleSignIn = async () => {
+    try {
+      await authClient.signIn.social({
+        provider: "google",
+        callbackURL: redirectTo,
+      });
+
+    } catch (error) {
+      toast.error("Google login failed");
+    }
+  };
+
+  return (
+    <div className="w-10/12 mx-auto min-h-[90vh] flex justify-center items-center my-10">
+
+      <div className="bg-white dark:bg-gray-900 w-full max-w-md shadow-md rounded-xl p-8 space-y-3 border border-gray-200 dark:border-gray-700">
+
+        <h1 className="text-2xl text-center font-semibold pb-5 border-b border-gray-300 dark:border-gray-700">
+          Login your account
+        </h1>
+
+        <form onSubmit={handleSubmit(handleLogin)}>
+
+          {/* EMAIL */}
+          <fieldset className="fieldset">
+            <legend className="fieldset-legend text-[1rem]">
+              Email
+            </legend>
+
+            <input
+              type="email"
+              className="input input-bordered w-full"
+              placeholder="Enter your email address"
+              {...register("email", { required: true })}
+            />
+
+            {errors.email && (
+              <span className="text-red-500 text-sm">
+                Email is required
+              </span>
+            )}
+          </fieldset>
+
+          {/* PASSWORD */}
+          <fieldset className="fieldset relative">
+            <legend className="fieldset-legend text-[1rem]">
+              Password
+            </legend>
+
+            <input
+              type={showpass ? "text" : "password"}
+              className="input input-bordered w-full"
+              placeholder="Enter your password"
+              {...register("password", { required: true })}
+            />
+
+            <span
+              className="absolute right-4 top-5 cursor-pointer"
+              onClick={() => setShowpass(!showpass)}
+            >
+              {showpass ? <FaEye /> : <IoMdEyeOff />}
+            </span>
+
+            {errors.password && (
+              <span className="text-red-500 text-sm">
+                Password is required
+              </span>
+            )}
+          </fieldset>
+
+          {/* SUBMIT */}
+          <button
+            type="submit"
+            className="w-full btn btn-neutral my-5"
+          >
+            Login
+          </button>
+        </form>
+
+        <p className="text-center text-gray-400">
+          or
+        </p>
+
+        {/* GOOGLE */}
+        <button
+          type="button"
+          onClick={handleGoogleSignIn}
+          className="flex items-center gap-2 font-semibold text-gray-500 hover:text-black dark:hover:text-white duration-200 py-3 border border-gray-300 dark:border-gray-700 rounded-full justify-center shadow-sm w-full"
+        >
+          <FcGoogle size={22} />
+          Continue with Google
+        </button>
+
+        {/* REGISTER */}
+        <div className="flex gap-2 font-semibold justify-center pt-2">
+          <h1>Don’t Have An Account?</h1>
+
+          <Link
+            href={`/singUp?redirect=${redirectTo}`}
+            className="text-red-500 underline"
+          >
+            Register
+          </Link>
+        </div>
+
+      </div>
+    </div>
+  );
+};
+
+export default LoginPage;
