@@ -1,6 +1,7 @@
+
+import Comment from "@/components/Comment";
 import Image from "next/image";
 import {
-  FaLightbulb,
   FaTag,
   FaDollarSign,
   FaUsers,
@@ -8,170 +9,160 @@ import {
   FaCheckCircle,
   FaFileAlt,
 } from "react-icons/fa";
-import { FcIdea } from "react-icons/fc";
 
 const IdeaDetails = async ({ params }) => {
   const { id } = await params;
 
   const res = await fetch(`http://localhost:5000/ideas/${id}`, {
-    cache: "no-store",
+cache: "no-store",
   });
 
-  if (!res.ok) throw new Error("Failed to fetch idea");
+if (!res.ok) throw new Error("Failed to fetch idea");
 
-  const data = await res.json();
+const data = await res.json();
 
-  const {
-    title,
-    shortDescription,
-    detailedDescription,
-    category,
-    imageUrl,
-    targetAudience,
-    budget,
-    tags,
-    problemStatement,
-    proposedSolution,
-  } = data;
+const {
+  title,
+  shortDescription,
+  detailedDescription,
+  category,
+  imageUrl,
+  targetAudience,
+  budget,
+  tags,
+  problemStatement,
+  proposedSolution,
+  createdAt,
+} = data;
 
-  const tagList = tags
-    ? tags.split(",").map((t) => t.trim().replace(/"/g, ""))
-    : [];
+const tagList = tags
+  ? tags.split(",").map((t) => t.trim().replace(/"/g, ""))
+  : [];
 
-  return (
-    <div className="max-w-4xl mx-auto px-4 py-10 space-y-6 border-2 border-[#025a441e] rounded-2xl my-10 shadow-2xl bg-[#0c82c20c]">
+return (
+  <div className="max-w-5xl mx-auto px-4 py-8">
+    <div className=" dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-3xl overflow-hidden shadow-sm">
 
-      {/* HERO */}
-      <div className="flex flex-col md:flex-row gap-6 items-start">
+      {/* Image */}
+      <div className="relative w-full h-[240px] md:h-[300px]">
+        <Image
+          src={imageUrl}
+          alt={title}
+          fill
+          className="object-cover"
+        />
+      </div>
 
-       <div>
-          <Image
-            src={imageUrl}
-            alt={title}
-            width={500}
-            height={400}
-            className="rounded-2xl shadow-md object-cover"
-          />
-          <h1 className="text-xl p-5 mt-8 flex items-center gap-1 border border-[#019a9033] rounded-2xl justify-center">
-            <FcIdea/>
-            <span>Think It. Build It. Change It</span>
-             </h1>
-       </div>
+      {/* Content */}
+      <div className="p-6 md:p-8">
 
-        <div className="flex-1">
+        {/* Category */}
+        <span className="inline-block px-3 py-1 rounded-full text-xs dark:bg-zinc-800  mb-4">
+          {category}
+        </span>
 
-          {/* TITLE */}
-          <p className="text-xs uppercase tracking-widest mb-1 flex items-center gap-2">
-            <FaLightbulb className="text-yellow-500" /> Idea
-          </p>
+        {/* Title */}
+        <h1 className="text-3xl md:text-4xl font-bold">
+          {title}
+        </h1>
 
-          <h1 className="text-3xl font-semibold">
-            {title}
-          </h1>
+        {/* Date */}
+        <p className="text-sm text-gray-400 mt-3">
+          {createdAt
+            ? new Date(createdAt).toDateString()
+            : "Recently Added"}
+        </p>
 
-          <p className="mt-2 text-base leading-relaxed">
-            {shortDescription}
-          </p>
+        {/* Short Description */}
+        <p className="mt-5  leading-relaxed text-sm md:text-base">
+          {shortDescription}
+        </p>
 
-          {/* CATEGORY + BUDGET */}
-          <div className="mt-4 flex flex-wrap gap-2">
-
-            <span className="px-4 py-1 text-sm rounded-full bg-blue-100 text-blue-800 flex items-center gap-1">
-              <FaTag className="text-blue-600" />
-              {category}
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2 mt-5">
+          {tagList.map((tag, i) => (
+            <span
+              key={i}
+              className="px-3 py-1 rounded-full text-xs dark:bg-zinc-800"
+            >
+              {tag}
             </span>
+          ))}
+        </div>
 
-            <span className="px-4 py-1 text-sm rounded-full bg-green-100 text-green-800 flex items-center gap-1">
-              <FaDollarSign className="text-green-600" />
-              ${Number(budget).toLocaleString()}
-            </span>
+        {/* Info Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
 
-          </div>
-
-          {/* TAGS */}
-          <div className="mt-6 rounded-2xl border border-[#00caa534] backdrop-blur p-5 shadow-sm bg-[#02999912]">
-
-            <p className="text-xs uppercase tracking-widest mb-3 flex items-center gap-2">
-              <FaTag className="text-teal-500" /> Tags
+          {/* Audience */}
+          <div className="border border-gray-200 dark:border-zinc-800 rounded-2xl p-4">
+            <p className="flex items-center gap-2 text-sm font-medium mb-2">
+              <FaUsers />
+              Target Audience
             </p>
 
-            <div className="flex flex-wrap gap-2">
-              {tagList.map((tag, i) => (
-                <span
-                  key={i}
-                  className="px-4 py-1 text-sm rounded-full border"
-                >
-                  #{tag}
-                </span>
-              ))}
-            </div>
-
-            {/* TARGET AUDIENCE */}
-            <div className="mt-6 rounded-2xl border border-[#00caa534] backdrop-blur p-5 shadow-sm bg-[#53029912]">
-
-              <p className="text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-                <FaUsers className="text-purple-500" /> Target Audience
-              </p>
-
-              <p className="text-sm">
-                {targetAudience}
-              </p>
-
-            </div>
-
-
+            <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+              {targetAudience}
+            </p>
           </div>
 
-        </div>
-      </div>
+          {/* Budget */}
+          <div className="border border-gray-200 dark:border-zinc-800 rounded-2xl p-4">
+            <p className="flex items-center gap-2 text-sm font-medium  mb-2">
+              <FaDollarSign />
+              Budget
+            </p>
 
-      {/* GRID */}
-      <div className="grid md:grid-cols-2 gap-4">
-
-        <div className="rounded-2xl border border-[#00caa534] backdrop-blur p-5 shadow-sm bg-[#a9374a29]">
-
-          <p className="text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-            <FaExclamationTriangle className="text-red-500" />
-            Problem Statement
-          </p>
-
-          <p className="text-sm leading-relaxed">
-            {problemStatement}
-          </p>
-
+            <p className="text-sm text-gray-600 dark:text-gray-300">
+              ${Number(budget).toLocaleString()}
+            </p>
+          </div>
         </div>
 
-        <div className="rounded-2xl border border-[#00caa534] backdrop-blur p-5 shadow-sm bg-[#02990234]">
+        {/* Problem & Solution */}
+        <div className="grid md:grid-cols-2 gap-4 mt-6">
 
-          <p className="text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-            <FaCheckCircle className="text-green-600" />
-            Proposed Solution
-          </p>
+          {/* Problem */}
+          <div className="border border-gray-200 dark:border-zinc-800 rounded-2xl p-5">
+            <p className="flex items-center gap-2 text-sm font-semibold text-red-500 mb-3">
+              <FaExclamationTriangle />
+              Problem Statement
+            </p>
 
-          <p className="text-sm leading-relaxed">
-            {proposedSolution}
-          </p>
+            <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+              {problemStatement}
+            </p>
+          </div>
 
+          {/* Solution */}
+          <div className="border border-gray-200 dark:border-zinc-800 rounded-2xl p-5">
+            <p className="flex items-center gap-2 text-sm font-semibold text-green-600 mb-3">
+              <FaCheckCircle />
+              Proposed Solution
+            </p>
+
+            <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+              {proposedSolution}
+            </p>
+          </div>
         </div>
 
+        {/* Detailed Description */}
+        <div className="mt-6 border border-gray-200 dark:border-zinc-800 rounded-2xl p-5">
+          <p className="flex items-center gap-2 text-sm font-semibold mb-3">
+            <FaFileAlt />
+            Detailed Description
+          </p>
+
+          <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            {detailedDescription}
+          </p>
+        </div>
       </div>
-
-      {/* DESCRIPTION */}
-      <div className="rounded-2xl border border-[#00caa534] backdrop-blur p-5 shadow-md bg-[#67029931]">
-
-        <p className="text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-          <FaFileAlt className="text-indigo-500" />
-          Detailed Description
-        </p>
-
-        <p className="text-sm leading-relaxed">
-          {detailedDescription}
-        </p>
-
-      </div>
-
     </div>
-  );
+    <Comment/>
+  </div>
+);
 };
 
 export default IdeaDetails;
+

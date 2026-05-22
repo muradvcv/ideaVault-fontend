@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { authClient } from "@/lib/auth-client";
-import { Avatar, Button, Input } from "@heroui/react";
-import { FiEdit, FiSave, FiX, FiCamera } from "react-icons/fi";
+import { FiEdit, FiSave, FiX } from "react-icons/fi";
 import toast, { Toaster } from "react-hot-toast";
+import Image from "next/image";
 
 const EditProfile = () => {
   const { data: session } = authClient.useSession();
@@ -17,19 +17,13 @@ const EditProfile = () => {
   });
 
   const handleEdit = () => {
-    setFormData({
-      name: user?.name || "",
-      image: user?.image || "",
-    });
+    setFormData({ name: user?.name || "", image: user?.image || "" });
     setIsEditing(true);
   };
 
   const handleCancel = () => {
     setIsEditing(false);
-    setFormData({
-      name: user?.name || "",
-      image: user?.image || "",
-    });
+    setFormData({ name: user?.name || "", image: user?.image || "" });
   };
 
   const handleSave = async () => {
@@ -37,15 +31,12 @@ const EditProfile = () => {
       toast.error("Name cannot be empty");
       return;
     }
-
     setIsLoading(true);
-
     try {
       await authClient.updateUser({
         name: formData.name.trim(),
         image: formData.image.trim() || undefined,
       });
-
       setIsEditing(false);
       toast.success("Profile updated successfully!");
     } catch (error) {
@@ -55,134 +46,136 @@ const EditProfile = () => {
     }
   };
 
+  const avatarSrc = isEditing ? formData.image : user?.image;
+  const initials = user?.name?.charAt(0)?.toUpperCase() || "U";
+
   return (
-    <>
+    <div>
       <Toaster position="top-right" />
+      <div className="min-h-[80vh] flex items-center justify-center px-4 py-10 max-w-4xl mx-auto shadow-2xl rounded-2xl my-10">
+        
+        <div className="w-full max-w-2xl">
 
-   
-      <div className="min-h-[80vh] flex items-center justify-center px-4 py-6">
+          {/* Avatar + Name Header */}
+          <div className="flex flex-col items-center mb-8">
+            <div className="relative w-24 h-24 mb-4">
+              {avatarSrc ? (
 
-        <div className="w-full max-w-2xl rounded-2xl border border-[#01809a8e] shadow-md p-6">
-
-          <div className="flex flex-col items-center">
-
-            <div className="relative">
-              <Avatar className="w-12 h-12 rounded-full border overflow-hidden">
-                <Avatar.Image
-                  src={isEditing ? formData.image : user?.image}
+                <Image
+                  src={avatarSrc}
                   alt={user?.name || "User"}
-                  className="w-40 h-40 object-cover rounded-full"
+                  width={96}
+                  height={96}
                   referrerPolicy="no-referrer"
+                  className="rounded-full object-cover border-4 border-cyan-500/30"
                 />
-                <Avatar.Fallback>
-                  {user?.name?.charAt(0) || "U"}
-                </Avatar.Fallback>
-              </Avatar>
-
+              ) : (
+                <div className="w-24 h-24 rounded-full bg-cyan-600 flex items-center justify-center text-white text-3xl font-semibold border-4 border-cyan-500/30">
+                  {initials}
+                </div>
+              )}
+              {isEditing && (
+                <div className="absolute inset-0 rounded-full bg-black/40 flex items-center justify-center cursor-pointer">
+                  <FiEdit className="text-white text-xl" />
+                </div>
+              )}
             </div>
 
             {isEditing ? (
-              <Input
-                className="mt-3 text-center max-w-sm bg-[#0475530c] rounded-2xl"
+              <input
+                type="text"
                 value={formData.name}
                 onChange={(e) =>
                   setFormData((prev) => ({ ...prev, name: e.target.value }))
                 }
-                size="sm"
+                className="text-center text-xl font-semibold bg-transparent border-b-2 border-cyan-500 outline-none px-2 pb-1 w-48"
                 placeholder="Your name"
               />
             ) : (
-              <h2 className="text-lg font-semibold mt-3">
-                {user?.name}
-              </h2>
+              <h2 className="text-xl font-semibold">{user?.name}</h2>
             )}
-
-            <p className="text-sm mt-1">
-              {user?.email}
-            </p>
+            <p className="text-sm text-gray-500 mt-1">{user?.email}</p>
           </div>
 
-          <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-3">
+          {/* 3 Column Info Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
 
-            <div className="border rounded-lg p-3">
-              <p className="text-xs mb-1 font-bold">Name</p>
+            {/* Name */}
+            <div className="rounded-2xl border border-cyan-500/20  dark:bg-gray-900 p-5 flex flex-col gap-2">
+              <p className="text-xs font-semibold uppercase tracking-widest text-cyan-600">Name</p>
               {isEditing ? (
-                <Input className="border-gray-300 outline-none shadow-2xl"
+                <input
+                  type="text"
                   value={formData.name}
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, name: e.target.value }))
                   }
-                  size="sm"
-                  placeholder="Name"
+                  className="w-full  dark:bg-gray-800 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-cyan-500"
+                  placeholder="Enter name"
                 />
               ) : (
-                <h3 className="text-sm font-medium">{user?.name}</h3>
+                <p className="text-sm font-medium truncate">{user?.name || "—"}</p>
               )}
             </div>
 
-            <div className="border rounded-lg p-3">
-              <p className="text-xs mb-1 font-bold">Email</p>
-              <p className="text-xs break-all">{user?.email}</p>
+            {/* Email */}
+            <div className="rounded-2xl border border-cyan-500/20 e dark:bg-gray-900 p-5 flex flex-col gap-2">
+              <p className="text-xs font-semibold uppercase tracking-widest text-cyan-600">Email</p>
+              <p className="text-sm font-medium break-all">{user?.email || "—"}</p>
             </div>
 
-            <div className="border rounded-lg p-3">
-              <p className="text-xs mb-1 font-bold">Image</p>
-
+            {/* Image URL */}
+            <div className="rounded-2xl border border-cyan-500/20  dark:bg-gray-900 p-5 flex flex-col gap-2">
+              <p className="text-xs font-semibold uppercase tracking-widest text-cyan-600">Image URL</p>
               {isEditing ? (
-                <Input className="outline-none shadow-2xl"
+                <input
+                  type="text"
                   value={formData.image}
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, image: e.target.value }))
                   }
-                  size="sm"
+                  className="w-full  dark:bg-gray-800 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-cyan-500"
                   placeholder="Image URL"
                 />
               ) : (
-                <p className="text-xs break-all">
-                  {user?.image || "No image"}
+                <p className="text-xs text-gray-500 break-all line-clamp-2">
+                  {user?.image || "No image set"}
                 </p>
               )}
             </div>
 
           </div>
 
-          <div className="mt-5">
-
-            {isEditing ? (
-              <div className="flex gap-3">
-                <Button
-                  className="flex-1"
-                  startContent={<FiX />}
-                  onPress={handleCancel}
-                  isDisabled={isLoading}
-                >
-                  Cancel
-                </Button>
-
-                <Button
-                  className="flex-1"
-                  startContent={<FiSave />}
-                  onPress={handleSave}
-                  isLoading={isLoading}
-                >
-                  Save
-                </Button>
-              </div>
-            ) : (
-              <Button
-                className="w-full bg-[#02827c] rounded-full py-3 text-white"
-                startContent={<FiEdit />}
-                onPress={handleEdit}
+          {/* Action Buttons */}
+          {isEditing ? (
+            <div className="flex gap-3">
+              <button
+                onClick={handleCancel}
+                disabled={isLoading}
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition disabled:opacity-50"
               >
-                Edit Profile
-              </Button>
-            )}
-
-          </div>
+                <FiX /> Cancel
+              </button>
+              <button
+                onClick={handleSave}
+                disabled={isLoading}
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-medium transition disabled:opacity-50"
+              >
+                <FiSave /> {isLoading ? "Saving..." : "Save Changes"}
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={handleEdit}
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-medium transition"
+            >
+              <FiEdit /> Edit Profile
+            </button>
+          )}
 
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

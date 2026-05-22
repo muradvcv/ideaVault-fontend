@@ -22,8 +22,8 @@ const LoginPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // redirect route
-  const redirectTo = searchParams.get("redirect") || "/";
+  // middleware পাঠায় callbackUrl, তাই সেটাই পড়তে হবে
+  const redirectTo = searchParams.get("callbackUrl") || "/";
 
   // LOGIN
   const handleLogin = async (data) => {
@@ -40,7 +40,6 @@ const LoginPage = () => {
     } else {
       toast.success("Login successful");
 
-      // redirect after login
       setTimeout(() => {
         router.push(redirectTo);
       }, 1000);
@@ -54,7 +53,6 @@ const LoginPage = () => {
         provider: "google",
         callbackURL: redirectTo,
       });
-
     } catch (error) {
       toast.error("Google login failed");
     }
@@ -62,7 +60,6 @@ const LoginPage = () => {
 
   return (
     <div className="w-10/12 mx-auto min-h-[90vh] flex justify-center items-center my-10">
-
       <div className="bg-white dark:bg-gray-900 w-full max-w-md shadow-md rounded-xl p-8 space-y-3 border border-gray-200 dark:border-gray-700">
 
         <h1 className="text-2xl text-center font-semibold pb-5 border-b border-gray-300 dark:border-gray-700">
@@ -73,63 +70,46 @@ const LoginPage = () => {
 
           {/* EMAIL */}
           <fieldset className="fieldset">
-            <legend className="fieldset-legend text-[1rem]">
-              Email
-            </legend>
-
+            <legend className="fieldset-legend text-[1rem]">Email</legend>
             <input
               type="email"
               className="input input-bordered w-full"
               placeholder="Enter your email address"
               {...register("email", { required: true })}
             />
-
             {errors.email && (
-              <span className="text-red-500 text-sm">
-                Email is required
-              </span>
+              <span className="text-red-500 text-sm">Email is required</span>
             )}
           </fieldset>
 
           {/* PASSWORD */}
           <fieldset className="fieldset relative">
-            <legend className="fieldset-legend text-[1rem]">
-              Password
-            </legend>
-
+            <legend className="fieldset-legend text-[1rem]">Password</legend>
             <input
               type={showpass ? "text" : "password"}
               className="input input-bordered w-full"
               placeholder="Enter your password"
               {...register("password", { required: true })}
             />
-
             <span
               className="absolute right-4 top-5 cursor-pointer"
               onClick={() => setShowpass(!showpass)}
             >
               {showpass ? <FaEye /> : <IoMdEyeOff />}
             </span>
-
             {errors.password && (
-              <span className="text-red-500 text-sm">
-                Password is required
-              </span>
+              <span className="text-red-500 text-sm">Password is required</span>
             )}
           </fieldset>
 
           {/* SUBMIT */}
-          <button
-            type="submit"
-            className="w-full btn btn-neutral my-5"
-          >
+          <button type="submit" className="w-full btn btn-neutral my-5">
             Login
           </button>
+          <p className="text-blue-600">Forget password?</p>
         </form>
 
-        <p className="text-center text-gray-400">
-          or
-        </p>
+        <p className="text-center text-gray-400">or</p>
 
         {/* GOOGLE */}
         <button
@@ -143,10 +123,9 @@ const LoginPage = () => {
 
         {/* REGISTER */}
         <div className="flex gap-2 font-semibold justify-center pt-2">
-          <h1>Don’t Have An Account?</h1>
-
+          <h1>Dont Have An Account?</h1>
           <Link
-            href={`/singUp?redirect=${redirectTo}`}
+            href={`/singUp?callbackUrl=${redirectTo}`}
             className="text-red-500 underline"
           >
             Register
