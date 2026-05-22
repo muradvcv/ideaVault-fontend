@@ -63,7 +63,7 @@ const SignUp = () => {
   return (
     <div className="w-10/12 mx-auto min-h-[90vh] flex justify-center items-center my-10">
 
-      <div className="bg-white dark:bg-gray-900 w-full max-w-md shadow-md rounded-xl py-5 px-8 space-y-3 border border-gray-200 dark:border-gray-700">
+      <div className=" dark:bg-gray-900 w-full max-w-md shadow-md rounded-xl py-5 px-8 space-y-3 border border-gray-200 dark:border-gray-700">
 
         <h1 className="text-2xl text-center font-semibold pb-3 border-b border-gray-300 dark:border-gray-700">
           Register your account
