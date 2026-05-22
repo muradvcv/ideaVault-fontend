@@ -1,19 +1,44 @@
-"use client";
-
+"use client"
 import React, { useState } from "react";
 import { Button } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
+import UiComment from "./UiComment";
 
 const Comment = () => {
 
-  const handleComment =(e) => {
 
-      e.preventDefault();
-      const fromData=new FormData(e.currentTarget)
-      const comment=Object.fromEntries(fromData.entries())
 
-      console.log(comment);
-    }
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+  console.log(user, 'user');
 
+  const handleComment = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const comment = Object.fromEntries(formData.entries());
+
+    const commentPayload = {
+      comment: comment.comment,
+      userName: user?.name,
+      userEmail: user?.email,
+      userImage: user?.image,
+      createdAt: new Date(),
+    };
+
+    const res = await fetch("http://localhost:5000/comment", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(commentPayload),
+    });
+
+    const data = await res.json();
+    console.log(data);
+
+    e.target.reset();
+  };
   return (
     <div className="my-8 shadow rounded-md p-4">
 
@@ -42,6 +67,11 @@ const Comment = () => {
           Post Comment
         </Button>
       </form>
+
+      <div className="my-5 shadow-2xl">
+
+        <UiComment />
+      </div>
 
 
     </div>

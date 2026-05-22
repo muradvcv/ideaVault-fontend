@@ -133,15 +133,30 @@ const SignUp = () => {
 
           {/* PASSWORD */}
           <fieldset className="fieldset relative">
-            <legend className="fieldset-legend">
-              Password
-            </legend>
+            <legend className="fieldset-legend">Password</legend>
 
             <input
               type={showpass ? "text" : "password"}
               className="input input-bordered w-full"
               placeholder="Enter password"
-              {...register("password", { required: true })}
+              {...register("password", {
+                required: "Password is required",
+
+                minLength: {
+                  value: 6,
+                  message: "Minimum 6 characters required",
+                },
+
+                validate: (value) => {
+                  if (!/[A-Z]/.test(value)) {
+                    return "At least 1 uppercase letter required";
+                  }
+                  if (!/[a-z]/.test(value)) {
+                    return "At least 1 lowercase letter required";
+                  }
+                  return true;
+                },
+              })}
             />
 
             <span
@@ -153,7 +168,7 @@ const SignUp = () => {
 
             {errors.password && (
               <span className="text-red-500 text-sm">
-                Password is required
+                {errors.password.message}
               </span>
             )}
           </fieldset>

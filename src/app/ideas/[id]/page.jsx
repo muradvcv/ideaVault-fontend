@@ -33,6 +33,7 @@ const {
   problemStatement,
   proposedSolution,
   createdAt,
+  _id
 } = data;
 
 const tagList = tags
@@ -159,7 +160,7 @@ return (
         </div>
       </div>
     </div>
-    <Comment/>
+    <Comment ideaId={_id} />
   </div>
 );
 };
