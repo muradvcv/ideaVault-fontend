@@ -87,25 +87,40 @@ const Footer = () => {
 
           <div className="flex flex-col gap-3 text-gray-400 text-sm">
 
-            <p className="hover:text-[#1c9e79] transition-all duration-300 cursor-pointer">
+            <Link
+              href="/ideas?category=Artificial Intelligence"
+              className="hover:text-[#1c9e79] transition-all duration-300"
+            >
               Artificial Intelligence
-            </p>
+            </Link>
 
-            <p className="hover:text-[#1c9e79] transition-all duration-300 cursor-pointer">
+            <Link
+              href="/ideas?category=Technology"
+              className="hover:text-[#1c9e79] transition-all duration-300"
+            >
               Technology
-            </p>
+            </Link>
 
-            <p className="hover:text-[#1c9e79] transition-all duration-300 cursor-pointer">
+            <Link
+              href="/ideas?category=Health & Wellness"
+              className="hover:text-[#1c9e79] transition-all duration-300"
+            >
               Health & Wellness
-            </p>
+            </Link>
 
-            <p className="hover:text-[#1c9e79] transition-all duration-300 cursor-pointer">
+            <Link
+              href="/ideas?category=Education"
+              className="hover:text-[#1c9e79] transition-all duration-300"
+            >
               Education
-            </p>
+            </Link>
 
-            <p className="hover:text-[#1c9e79] transition-all duration-300 cursor-pointer">
+            <Link
+              href="/ideas?category=Finance"
+              className="hover:text-[#1c9e79] transition-all duration-300"
+            >
               Finance
-            </p>
+            </Link>
 
           </div>
         </div>
