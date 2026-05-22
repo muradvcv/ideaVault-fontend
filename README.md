@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# IdeaVault – Startup Idea Sharing Platform
 
-## Getting Started
+Live Site: [https://ideavault-fontend.vercel.app](https://ideavault-fontend.vercel.app)
+Client Repo: [https://github.com/muradvcv/ideaVault-fontend](https://github.com/muradvcv/ideaVault-fontend)
+Server Repo: [https://github.com/muradvcv/ideaVault-backend](https://github.com/muradvcv/ideaVault-backend)
 
-First, run the development server:
+---
 
-```bash
+## 📌 About Project
+
+IdeaVault is a simple web application where users can share startup ideas, view ideas from others, and interact through comments.
+
+The main goal of this platform is to help users share ideas, get feedback, and improve them together.
+
+---
+
+## ✨ Features
+
+* User registration and login system
+* Google login support
+* Add new startup ideas
+* View all ideas
+* Idea details page
+* Comment system (add, edit, delete)
+* Manage your own ideas
+* View your interactions
+* Search and category filter
+* JWT authentication
+* Protected routes
+
+---
+
+## 📄 Pages
+
+* Home page (banner + trending ideas)
+* Ideas page (all ideas list)
+* Add Idea (private)
+* Idea Details (private)
+* My Ideas (private)
+* My Interactions (private)
+* Login / Register
+
+---
+
+## ⚙️ Tech Stack
+
+* Next.js
+* React
+* Node.js
+* Express.js
+* MongoDB
+* JWT Authentication
+* Tailwind CSS
+
+---
+
+## 🚀 How to Run
+
+### Client
+
+```
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Server
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```
+npm install
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🌍 Deployment
 
-To learn more about Next.js, take a look at the following resources:
+Client: Vercel
+Server: Render / Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 👨‍💻 Note
 
-## Deploy on Vercel
+* No Lorem Ipsum text used
+* Fully responsive design
+* Single Page Application (SPA)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Made for CAT_01 Assignment
