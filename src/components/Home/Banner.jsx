@@ -7,6 +7,7 @@ import {
   FaChevronLeft,
   FaChevronRight,
 } from "react-icons/fa";
+import Link from "next/link";
 
 const images = [
   "/banner/banner1.jpg",
@@ -108,21 +109,25 @@ const HeroBanner = () => {
           <div className="flex flex-col sm:flex-row gap-4 mt-8 w-full sm:w-auto">
 
             {/* BUTTON 1 */}
-            <button className="w-full sm:w-auto px-5 sm:px-6 py-3 rounded-xl bg-yellow-400 text-black text-sm font-semibold flex items-center justify-center gap-2 hover:scale-105 transition duration-300">
-              Get Started
-              <FaArrowRight className="text-xs" />
-            </button>
+           <Link href={'/ideas'}>
+              <button className="w-full sm:w-auto px-5 sm:px-6 py-3 rounded-xl bg-yellow-400 text-black text-sm font-semibold flex items-center justify-center gap-2 hover:scale-105 transition duration-300">
+                Get Started
+                <FaArrowRight className="text-xs" />
+              </button>
+              </Link>
 
             {/* BUTTON 2 */}
-            <button className="w-full sm:w-auto px-5 sm:px-6 py-3 rounded-xl border border-white/30 bg-white/10 backdrop-blur-md text-white text-sm font-medium flex items-center justify-center gap-2 hover:scale-105 transition duration-300">
+           <Link href={'add-idea'}>
+              <button className="w-full sm:w-auto px-5 sm:px-6 py-3 rounded-xl border border-white/30 bg-white/10 backdrop-blur-md text-white text-sm font-medium flex items-center justify-center gap-2 hover:scale-105 transition duration-300">
 
-              
 
-              <span className="whitespace-nowrap">
-                Add your idea
-              </span>
 
-            </button>
+                <span className="whitespace-nowrap">
+                  Add your idea
+                </span>
+
+              </button>
+           </Link>
 
           </div>
         </div>
