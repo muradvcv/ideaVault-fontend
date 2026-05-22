@@ -1,16 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
 
-const UiComment = ({ refresh }) => {
+const UiComment = ({ comments, setComments }) => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
 
-  const [comments, setComments] = useState([]);
-
-  // 🔥 SAFE FETCH (no cascading issue)
+  // 🔥 LOAD COMMENTS ONCE
   useEffect(() => {
     const fetchComments = async () => {
       const res = await fetch("http://localhost:5000/comment");
@@ -19,9 +17,9 @@ const UiComment = ({ refresh }) => {
     };
 
     fetchComments();
-  }, [refresh]);
+  }, [setComments]);
 
-  // 🔥 DELETE
+  // 🔥 DELETE COMMENT
   const handleDelete = async (id) => {
     await fetch(`http://localhost:5000/comment/${id}`, {
       method: "DELETE",
@@ -36,9 +34,9 @@ const UiComment = ({ refresh }) => {
     setComments((prev) => prev.filter((c) => c._id !== id));
   };
 
-  // 🔥 EDIT
+  // 🔥 EDIT COMMENT
   const handleEdit = async (id, oldComment) => {
-    const newComment = prompt("Edit comment", oldComment);
+    const newComment = prompt("Edit your comment", oldComment);
     if (!newComment) return;
 
     await fetch(`http://localhost:5000/comment/${id}`, {
@@ -61,8 +59,9 @@ const UiComment = ({ refresh }) => {
 
   return (
     <div className="space-y-4">
+
       {comments.map((c) => (
-        <div key={c._id} className="border p-3 rounded">
+        <div key={c._id || c.createdAt} className="border p-3 rounded">
 
           {/* USER */}
           <div className="flex items-center gap-2">
@@ -73,7 +72,6 @@ const UiComment = ({ refresh }) => {
               className="rounded-full"
               alt="user"
             />
-
             <h4 className="font-semibold">{c.userName}</h4>
           </div>
 
@@ -106,6 +104,7 @@ const UiComment = ({ refresh }) => {
 
         </div>
       ))}
+
     </div>
   );
 };

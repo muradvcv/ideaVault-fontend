@@ -39,7 +39,7 @@ const MyInterAction = () => {
     <div className="min-h-[50vh] w-10/12 mx-auto py-5">
 
       <h2 className="text-xl font-semibold mb-4">
-        Total comments ({comments.length})
+        Total Comments ({comments.length})
       </h2>
 
      

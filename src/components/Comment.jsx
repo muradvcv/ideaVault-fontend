@@ -1,17 +1,17 @@
-"use client"
+"use client";
+
 import React, { useState } from "react";
 import { Button } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import UiComment from "./UiComment";
 
 const Comment = () => {
-
-
-
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log(user, 'user');
 
+  const [comments, setComments] = useState([]);
+
+  // 🔥 POST COMMENT
   const handleComment = async (e) => {
     e.preventDefault();
 
@@ -23,10 +23,11 @@ const Comment = () => {
       userName: user?.name,
       userEmail: user?.email,
       userImage: user?.image,
+      ideaTitle: user?.title, 
       createdAt: new Date(),
     };
 
-    const res = await fetch("http://localhost:5000/comment", {
+    await fetch("http://localhost:5000/comment", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -34,32 +35,30 @@ const Comment = () => {
       body: JSON.stringify(commentPayload),
     });
 
-    const data = await res.json();
-    console.log(data);
-
     e.target.reset();
+
+    // 🔥 instant update UI
+    setComments((prev) => [commentPayload, ...prev]);
   };
+
   return (
     <div className="my-8 shadow rounded-md p-4">
 
-      {/* Title */}
+      {/* TITLE WITH COUNT */}
       <h2 className="text-lg font-semibold mb-4">
-        Comments ()
+        Total Comments: ({comments.length})
       </h2>
 
-      {/* Form */}
+      {/* FORM */}
       <form onSubmit={handleComment}>
-
-        {/* Textarea */}
         <textarea
           name="comment"
-          placeholder="Add your comment..."
+          placeholder="write a comment about this idea..."
           rows={4}
-          className="w-full border rounded-md p-3 outline-none resize-none focus:border-[#5B4DF1]"
+          className="w-full border rounded-md p-3 outline-none"
           required
         />
 
-        {/* Button */}
         <Button
           type="submit"
           className="mt-3 bg-[#5B4DF1] text-white font-medium rounded-md p-3"
@@ -68,11 +67,10 @@ const Comment = () => {
         </Button>
       </form>
 
-      <div className="my-5 shadow-2xl">
-
-        <UiComment />
+      {/* COMMENT LIST */}
+      <div className="my-5">
+        <UiComment comments={comments} setComments={setComments} />
       </div>
-
 
     </div>
   );

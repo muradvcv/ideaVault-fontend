@@ -160,7 +160,7 @@ return (
         </div>
       </div>
     </div>
-    <Comment ideaId={_id} />
+    <Comment ideaId={_id} title={title}/>
   </div>
 );
 };
