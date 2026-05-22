@@ -21,7 +21,7 @@ const Navbar = () => {
     await authClient.signOut();
   };
 
-  // Public links (always visible)
+  
   const publicLinks = [
     { name: "Home", path: "/" },
     { name: "Ideas", path: "/ideas" },
@@ -160,20 +160,21 @@ const Navbar = () => {
               </li>
             ) : (
                 <>
-                  <li>
+                  <li className="w-full sm:w-auto">
                     <Link
                       href="/login"
-                      className="px-4 py-2 rounded-lg border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-white font-medium transition-all duration-200"
+                      className="block w-full sm:w-auto text-center px-3 py-1.5 text-sm sm:text-base rounded-lg border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-white font-medium transition-all duration-200"
                     >
                       Login
                     </Link>
                   </li>
-                  <li>
+
+                  <li className="w-full sm:w-auto">
                     <Link
                       href="/singUp"
-                      className="px-4 py-2 rounded-lg bg-cyan-400 text-white hover:bg-cyan-500 font-medium transition-all duration-200 shadow-md hover:shadow-cyan-400/40"
+                      className="block w-full sm:w-auto text-center px-3 py-1.5 text-sm sm:text-base rounded-lg bg-cyan-400 text-white hover:bg-cyan-500 font-medium transition-all duration-200 shadow-md hover:shadow-cyan-400/40"
                     >
-                      Sign Up
+                      SignUp
                     </Link>
                   </li>
                 </>
