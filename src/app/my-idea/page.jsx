@@ -26,7 +26,7 @@ const MyIdea = () => {
     if (session?.user?.email) {
 
       fetch(
-        `http://localhost:5000/my-ideas?email=${session.user.email}`
+        `${process.env.SERVER_URL}/my-ideas?email=${session.user.email}`
       )
         .then((res) => res.json())
         .then((data) => setIdeas(data));
@@ -42,7 +42,7 @@ const MyIdea = () => {
 
     if (!confirmDelete) return;
 
-    const res = await fetch(`http://localhost:5000/ideas/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/ideas/${id}`, {
       method: "DELETE",
     });
 
@@ -85,7 +85,7 @@ const MyIdea = () => {
     };
 
     const res = await fetch(
-      `http://localhost:5000/ideas/${editingIdea?._id}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/ideas/${editingIdea?._id}`,
       {
         method: "PUT",
         headers: {

@@ -9,7 +9,7 @@ const AllIdeas = () => {
   const [category, setCategory] = useState("All");
 
   useEffect(() => {
-    fetch("http://localhost:5000/ideas")
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/ideas`)
       .then((res) => res.json())
       .then((data) => setIdeas(data));
   }, []);

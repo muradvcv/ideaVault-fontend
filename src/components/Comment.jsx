@@ -27,7 +27,7 @@ const Comment = () => {
       createdAt: new Date(),
     };
 
-    await fetch("http://localhost:5000/comment", {
+    await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/comment`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

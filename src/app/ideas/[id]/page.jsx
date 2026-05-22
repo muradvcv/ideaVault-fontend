@@ -1,8 +1,10 @@
 
 import Comment from "@/components/Comment";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
 import {
-  FaTag,
+ 
   FaDollarSign,
   FaUsers,
   FaExclamationTriangle,
@@ -13,12 +15,17 @@ import {
 const IdeaDetails = async ({ params }) => {
   const { id } = await params;
 
-  const res = await fetch(`http://localhost:5000/ideas/${id}`, {
+
+  const token = await auth.api.getToken({
+    headers: await headers(),
+  });
+  const res = await fetch(`${process.env.SERVER_URL}/ideas/${id}`, {
     cache: "no-store",
     headers: {
-      authorization: "Logged in"
-    }
+      Authorization: `Bearer ${token?.token}`,
+    },
   });
+
 
   if (!res.ok) throw new Error("Failed to fetch idea");
 

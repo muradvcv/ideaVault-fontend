@@ -11,7 +11,7 @@ const UiComment = ({ comments, setComments }) => {
   // 🔥 LOAD COMMENTS ONCE
   useEffect(() => {
     const fetchComments = async () => {
-      const res = await fetch("http://localhost:5000/comment");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/comment`);
       const data = await res.json();
       setComments(data);
     };
@@ -21,7 +21,7 @@ const UiComment = ({ comments, setComments }) => {
 
   // 🔥 DELETE COMMENT
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/comment/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/comment/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -39,7 +39,7 @@ const UiComment = ({ comments, setComments }) => {
     const newComment = prompt("Edit your comment", oldComment);
     if (!newComment) return;
 
-    await fetch(`http://localhost:5000/comment/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/comment/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

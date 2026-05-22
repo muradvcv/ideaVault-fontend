@@ -12,7 +12,7 @@ const MyInterAction = () => {
   const loadMyComments = async () => {
     if (!user?.email) return;
 
-    const res = await fetch("http://localhost:5000/comment");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/comment`);
     const data = await res.json();
 
     const myComments = data.filter(
