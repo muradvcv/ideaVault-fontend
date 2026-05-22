@@ -26,7 +26,7 @@ const MyIdea = () => {
     if (session?.user?.email) {
 
       fetch(
-        `${process.env.SERVER_URL}/my-ideas?email=${session.user.email}`
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/my-ideas?email=${session.user.email}`
       )
         .then((res) => res.json())
         .then((data) => setIdeas(data));

@@ -14,7 +14,7 @@ const Footer = () => {
         <div>
           <div className="flex items-center gap-3">
             <Image
-              src="/assets/idea2.png"
+              src="/assets/ideaLogo.png"
               alt="IdeaVault"
               width={55}
               height={55}

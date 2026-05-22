@@ -79,7 +79,7 @@ const Navbar = () => {
             <Image
               width={60}
               height={60}
-              src="/assets/idea2.png"
+              src="/assets/ideaLogo.png"
               alt="IdeaVault Logo"
             />
             <h1 className="text-xl font-bold hidden lg:block">
