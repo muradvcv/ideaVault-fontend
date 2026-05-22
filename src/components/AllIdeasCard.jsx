@@ -42,7 +42,7 @@ const AllIdeasCard = ({ idea }) => {
 
       {/* CONTENT */}
       <div className="p-5">
-        {/* TITLE */}
+       
         <div>
           <h2 className="text-[1.1rem] font-bold line-clamp-1">
             {title}
@@ -70,7 +70,7 @@ const AllIdeasCard = ({ idea }) => {
             </p>
           </div>
 
-          {/* BUDGET */}
+         
           <div className="rounded-2xl bg-[#ECFDF5] p-2">
             <div className="mb-2 flex items-center gap-2 text-[#059669]">
               <Wallet size={16} />
