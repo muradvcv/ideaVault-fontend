@@ -1,3 +1,8 @@
+
+## 📸 Screenshot
+
+<img src="./screenshot/Screenshot%20(334).png" alt="IdeaVault Screenshot" width="100%">
+
 # IdeaVault – Startup Idea Sharing Platform
 
 Live Site: [https://ideavault-fontend.vercel.app](https://ideavault-fontend.vercel.app)
