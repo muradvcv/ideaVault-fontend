@@ -1,7 +1,7 @@
 
 ## 📸 Screenshot
 
-<img src="./screenshot/Screenshot%20(334).png" alt="IdeaVault Screenshot" width="100%">
+<img src="./src/sreenshot/IteaVaultSS.png" alt="IdeaVault Screenshot" width="100%">
 
 # IdeaVault – Startup Idea Sharing Platform
 
