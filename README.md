@@ -1,7 +1,30 @@
+<div align="center">
 
-## 📸 Screenshot
+# 🚀 IdeaVault
 
-<img src="./src/sreenshot/IteaVaultSS.png" alt="IdeaVault Screenshot" width="100%">
+### A modern, collaborative web platform where entrepreneurs and innovators can share, validate, and refine startup ideas through community engagement, real-time feedback, and interactive discussions.
+
+<br>
+
+<a href="https://ideavault-fontend.vercel.app" target="_blank">
+  <img src="https://img.shields.io/badge/Live-Demo-0d1117?style=for-the-badge&logo=vercel&logoColor=white" />
+</a>
+
+<a href="https://github.com/muradvcv/ideaVault-fontend" target="_blank">
+  <img src="https://img.shields.io/badge/Client-Repo-0d1117?style=for-the-badge&logo=github&logoColor=white" />
+</a>
+
+<a href="https://github.com/muradvcv/ideaVault-backend" target="_blank">
+  <img src="https://img.shields.io/badge/Server-Repo-0d1117?style=for-the-badge&logo=github&logoColor=white" />
+</a>
+
+</div>
+
+---
+
+## 📸  Preview
+
+<img src="./src/sreenshot/IteaVaultSS.png" alt="IdeaVault Screenshot" width="80%">
 
 # IdeaVault – Startup Idea Sharing Platform
 
