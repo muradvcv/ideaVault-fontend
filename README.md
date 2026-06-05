@@ -24,15 +24,9 @@
 
 ## 📸  Preview
 
-<img src="./src/sreenshot/IteaVaultSS.png" alt="IdeaVault Screenshot" width="80%">
+<img src="./src/sreenshot/IteaVaultSS.png" alt="IdeaVault Screenshot" width="100%">
 
-# IdeaVault – Startup Idea Sharing Platform
 
-Live Site: [https://ideavault-fontend.vercel.app](https://ideavault-fontend.vercel.app)
-Client Repo: [https://github.com/muradvcv/ideaVault-fontend](https://github.com/muradvcv/ideaVault-fontend)
-Server Repo: [https://github.com/muradvcv/ideaVault-backend](https://github.com/muradvcv/ideaVault-backend)
-
----
 
 ## 📌 About Project
 
